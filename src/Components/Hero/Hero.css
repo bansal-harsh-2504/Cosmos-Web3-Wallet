@@ -1,0 +1,22 @@
+/* hero */
+.hero h1 {
+  font-size: 48px;
+  color: #0a0a0a;
+  font-weight: 900;
+  letter-spacing: -3px;
+}
+.hero p {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(23, 23, 23, 0.8);
+  margin-bottom: 1.5rem;
+}
+
+/* Dark mode */
+body.dark .hero h1,
+body.dark .hero p {
+  color: #fff;
+}
+body.dark .hero p {
+  opacity: .8;
+}

@@ -1,0 +1,25 @@
+/* header */
+.header {
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+.logo {
+  display: flex;
+}
+.logo img {
+  padding-top: 5px;
+  height: 30px;
+  width: 30px;
+}
+.logo-heading {
+  font-size: 28px;
+  font-weight: 800;
+  margin-left: 5px;
+}
+
+/* dark mode */
+body.dark .logo-heading {
+  color: #fafafa;
+}

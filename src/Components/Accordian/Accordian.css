@@ -1,0 +1,96 @@
+.h1 {
+  color: #0a0a0a;
+  margin-bottom: 3.25rem;
+  font-size: 24px;
+}
+.p {
+  width: 259px;
+  border-radius: 8px;
+  background: #0a0a0a10;
+  padding: 16px;
+  font-size: 18px;
+  height: 30px;
+  color: #0a0a0a;
+  line-height: 28px;
+  margin: 4px;
+}
+.p:hover {
+  background: #0a0a0a20;
+}
+.mnemonic-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.copy-anywhere {
+  background: none;
+  opacity: 0.5;
+  font-size: 14px;
+  color: #0a0a0a;
+  display: none;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+.copy-anywhere:hover {
+  background: none;
+}
+.outer-div {
+  border: 1px solid #0a0a0a25;
+  padding: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 40px;
+  width: 1200px;
+}
+.arrow {
+  display: flex;
+  justify-content: space-between;
+}
+.arrow-icon {
+  color: #0a0a0a;
+  margin-right: 10px;
+  font-size: 30px;
+  opacity: 0.8;
+  padding: 5px;
+  transform: translateY(-5px);
+}
+.arrow-icon:hover {
+  background: #0a0a0a20;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* active */
+.outer-div.active {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  height: 340px;
+}
+.copy-anywhere.active {
+  display: block;
+}
+/* dark */
+body.dark .h1 {
+  color: #fafafa;
+}
+body.dark .copy-anywhere {
+  color: #fafafa;
+}
+body.dark .p {
+  color: #fafafa;
+  background: #fafafa10;
+}
+body.dark .p:hover {
+  background: #fafafa20;
+}
+body.dark .outer-div.active {
+  border: 1px solid rgba(255, 214, 109, 0.4);
+}
+body.dark .arrow-icon {
+  color: #fafafa;
+}
+body.dark .arrow-icon:hover {
+  background: #f0f0f020;
+}
+body.dark .outer-div{
+    border: 1px solid #fafafa25;
+}

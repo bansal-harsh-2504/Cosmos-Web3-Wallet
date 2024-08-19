@@ -1,0 +1,31 @@
+/* Button */
+.btn {
+  height: 44px;
+  padding: 0 32px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  color: #fafafa;
+  background: #0a0a0a;
+  font-weight: 500;
+}
+.move-aside {
+  margin-right: 5px;
+}
+.btn:hover {
+  background: #0a0a0ae9;
+}
+.btn::selection,
+body.dark .btn::selection{
+  background: none;
+}
+/* Dark mode */
+body.dark .btn {
+  color: #0a0a0a;
+  background-color: #fafafa;
+}
+body.dark .btn:hover {
+  background: #fafafadf;
+}

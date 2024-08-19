@@ -1,0 +1,25 @@
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 0.75rem;
+  margin-left: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #8e8e8e;
+  font-size: 16px;
+  width: 85%;
+  letter-spacing: -0.8px;
+}
+.footer a {
+  text-decoration: none;
+  color: rgb(23, 23, 23);
+  font-weight: 700;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* dark mode */
+body.dark .footer,
+body.dark .footer a{
+  color: #fafafa;
+}
