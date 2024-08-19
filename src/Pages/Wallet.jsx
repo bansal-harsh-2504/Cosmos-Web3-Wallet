@@ -13,6 +13,7 @@ const Wallet = () => {
     <>
       <Header />
       <Accordian/>
+      
       <Footer />
     </>
   );

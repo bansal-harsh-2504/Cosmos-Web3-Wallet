@@ -11,11 +11,10 @@ const Accordian = () => {
   const [selected, setSelected] = useState(false);
 
   useEffect(() => {
-    let storedMnemonic = localStorage.getItem("mnemonic").split(" ");
+    let storedMnemonic = localStorage.getItem("mnemonic");
     if (storedMnemonic) {
       try {
-        storedMnemonic = JSON.parse(storedMnemonic);
-        setMnemonic(storedMnemonic);
+        setMnemonic(storedMnemonic.split(" "));
       } catch (error) {
         console.error("Error parsing mnemonic:", error);
       }
@@ -32,7 +31,7 @@ const Accordian = () => {
             <IoIosArrowDown className="arrow-icon" />
         )}
       </div>
-      <div onClick={() => copyToClipboard(mnemonic)}>
+      <div onClick={() => copyToClipboard()}>
         <div
           className="mnemonic-container"
           style={{ display: `${selected ? "flex" : "none"}` }}

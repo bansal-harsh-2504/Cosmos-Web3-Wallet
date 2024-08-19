@@ -15,7 +15,7 @@ const Generate = () => {
     if (inputVal == "") {
       localStorage.removeItem('mnemonic');
     }else if(validateMnemonic(inputVal)){
-      localStorage.setItem("mnemonic", JSON.stringify(inputVal.split(' ')));
+      localStorage.setItem("mnemonic", inputVal);
     } else {
       toast.error("Invalid recovery phrase. Please try again");
     }

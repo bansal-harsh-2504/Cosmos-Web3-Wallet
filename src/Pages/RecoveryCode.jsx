@@ -13,13 +13,9 @@ const RecoveryCode = () => {
     let storedMnemonic = localStorage.getItem("mnemonic");
     if (!storedMnemonic) {
       storedMnemonic = generateMnemonic();
-      localStorage.setItem(
-        "mnemonic",
-        (storedMnemonic = JSON.stringify(storedMnemonic.split(" ")))
-      );
+      localStorage.setItem("mnemonic", storedMnemonic);
     }
-    storedMnemonic = JSON.parse(storedMnemonic);
-    setMnemonic(storedMnemonic);
+    setMnemonic(storedMnemonic.split(' '));
   }, []);
   return (
     <>
@@ -32,7 +28,7 @@ const RecoveryCode = () => {
         </p>
         <div
           className="secret-phrase"
-          onClick={() => copyToClipboard(JSON.stringify(mnemonic))}
+          onClick={() => copyToClipboard()}
         >
           <div className="flex-phrase">
             {mnemonic.map((phrase, idx) => (

@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
-const copyToClipboard = (content) => {
-    const newContent = content;
-    navigator.clipboard.writeText(JSON.stringify(newContent).replaceAll(',', ' ').replaceAll('[', '').replaceAll(']', '').replaceAll('"', ''));
+const copyToClipboard = () => {
+    navigator.clipboard.writeText(localStorage.getItem('mnemonic'));
     toast.success('Copied to clipboard');
 };
 export default copyToClipboard;
