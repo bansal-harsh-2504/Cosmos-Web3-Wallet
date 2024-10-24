@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import RecoveryCode from "./Pages/RecoveryCode";
 
 function App() {
-  const [themeMode, setThemeMode] = useState("light");
+  const [themeMode, setThemeMode] = useState("dark");
   const darkTheme = () => {
     setThemeMode("dark");
   };

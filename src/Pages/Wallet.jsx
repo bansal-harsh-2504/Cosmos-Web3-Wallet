@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import Buffer from "buffer";
 import "./css/Wallet.css";
 import { Connection, PublicKey } from "@solana/web3.js";
-const connection = new Connection(`${import.meta.env.VITE_SOL_CONNECTION_URL}`);
+const connection = new Connection(`${import.meta.env.VITE_SOL_DEVNET_CONNECTION_URL}`);
 
 const Wallet = () => {
   let [mnemonic, setMnemonic] = useState("");
@@ -137,10 +137,14 @@ const Wallet = () => {
 
   const showEthBalance = async (publicKey) => {
     try {
+      const provider = new ethers.providers.JsonRpcProvider(`${import.meta.env.VITE_ETH_DEVNET_CONNECTION_URL}`)
+      const balanceWei = await provider.getBalance(publicKey);
+      const balanceEther = ethers.utils.formatEther(balanceWei);
+
       setEthWallets((prevWallets) =>
         prevWallets.map((wallet) =>
           wallet.publicKey === publicKey
-            ? { ...wallet, balance: 0, display: true }
+            ? { ...wallet, balance: balanceEther, display: true }
             : wallet
         )
       );
@@ -206,10 +210,11 @@ const Wallet = () => {
                       className="show-balance"
                       onClick={() => getSolBalance(wallet.publicKey)}
                     >
-                      <span className="border-bottom">{wallet.display
-                        ? "Balance: " + wallet.balance + " SOL"
-                        : "Show balance"}</span>{" "}
-                      
+                      <span className="border-bottom">
+                        {wallet.display
+                          ? "Balance: " + wallet.balance + " SOL"
+                          : "Show balance"}
+                      </span>{" "}
                     </button>
                   </div>
                   <MdDeleteOutline
