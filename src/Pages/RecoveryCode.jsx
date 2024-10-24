@@ -10,12 +10,11 @@ const RecoveryCode = () => {
   const [checked, setChecked] = useState(false);
   const [mnemonic, setMnemonic] = useState([]);
   useEffect(() => {
-    let storedMnemonic = localStorage.getItem("mnemonic");
-    if (!storedMnemonic) {
-      storedMnemonic = generateMnemonic();
-      localStorage.setItem("mnemonic", storedMnemonic);
-    }
-    setMnemonic(storedMnemonic.split(' '));
+    let storedMnemonic = generateMnemonic();
+    localStorage.setItem("mnemonic", storedMnemonic);
+    localStorage.removeItem("solWallets");
+    localStorage.removeItem("ethWallets");
+    setMnemonic(storedMnemonic.split(" "));
   }, []);
   return (
     <>
@@ -26,10 +25,7 @@ const RecoveryCode = () => {
           This phrase is the ONLY way to recover your wallet.
           <br /> Do NOT share it with anyone!
         </p>
-        <div
-          className="secret-phrase"
-          onClick={() => copyToClipboard()}
-        >
+        <div className="secret-phrase" onClick={() => copyToClipboard()}>
           <div className="flex-phrase">
             {mnemonic.map((phrase, idx) => (
               <div key={idx} className="phrase">
