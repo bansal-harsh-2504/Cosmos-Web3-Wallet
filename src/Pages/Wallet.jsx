@@ -2,7 +2,7 @@ import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 import Accordian from "../Components/Accordian/Accordian";
 import bs58 from "bs58";
-import { JsonRpcProvider, formatEther } from "ethers";
+import { ethers, JsonRpcProvider, formatEther } from "ethers";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import nacl from "tweetnacl";
@@ -15,7 +15,9 @@ import toast from "react-hot-toast";
 import Buffer from "buffer";
 import "./css/Wallet.css";
 import { Connection, PublicKey } from "@solana/web3.js";
-const connection = new Connection(`${import.meta.env.VITE_SOL_DEVNET_CONNECTION_URL}`);
+const connection = new Connection(
+  `${import.meta.env.VITE_SOL_DEVNET_CONNECTION_URL}`
+);
 
 const Wallet = () => {
   let [mnemonic, setMnemonic] = useState("");
@@ -137,7 +139,9 @@ const Wallet = () => {
 
   const showEthBalance = async (publicKey) => {
     try {
-      const provider = new JsonRpcProvider(`${import.meta.env.VITE_ETH_DEVNET_CONNECTION_URL}`)
+      const provider = new JsonRpcProvider(
+        `${import.meta.env.VITE_ETH_DEVNET_CONNECTION_URL}`
+      );
       const balanceWei = await provider.getBalance(publicKey);
       const balanceEther = formatEther(balanceWei);
 
