@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import Buffer from "buffer";
 import "./css/Wallet.css";
 import { Connection, PublicKey } from "@solana/web3.js";
-const connection = new Connection(`${import.meta.env.VITE_SOL_CONNECTION_URL}`);
+const connection = new Connection("https://api.mainnet-beta.solana.com");
 
 const Wallet = () => {
   let [solWallets, setSolWallets] = useState([]);
