@@ -7,7 +7,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        <img src={themeMode === 'light' ? "logo.png" : "logo-white.png"} alt="" />
+        <img
+          src={themeMode === "light" ? "logo.png" : "logo-white.png"}
+          alt=""
+        />
         <span className="logo-heading">Cosmos</span>
       </div>
       <Toggle />
