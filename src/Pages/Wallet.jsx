@@ -24,15 +24,15 @@ const Wallet = () => {
   let [ethWallets, setEthWallets] = useState([]);
   let [ethIndex, setEthIndex] = useState(0);
 
-  const generateSolWallet = async (storedSolMnemonic) => {
+  const generateSolWallet = (storedSolMnemonic) => {
     let pathType = "501";
     let accountIndex = solIndex;
     const seedBuffer = mnemonicToSeedSync(mnemonic || storedSolMnemonic);
     const path = `m/44'/${pathType}'/0'/${accountIndex}'`;
     const derivedSeed = derivePath(path, seedBuffer.toString("hex")).key;
-    let privateKeyEncoded, publicKeyEncoded, balance;
-    setSolIndex((solIndex) => solIndex + 1);
-    localStorage.setItem("solIndex", JSON.stringify(solIndex));
+    let privateKeyEncoded, publicKeyEncoded;
+    setSolIndex(accountIndex + 1);
+    localStorage.setItem("solIndex", JSON.stringify(accountIndex + 1));
 
     if (pathType === "501") {
       const seedUint8Array = new Uint8Array(derivedSeed.slice(0, 32));
@@ -40,15 +40,14 @@ const Wallet = () => {
       const keyPair = Keypair.fromSecretKey(secretKey);
       privateKeyEncoded = bs58.encode(secretKey);
       publicKeyEncoded = keyPair.publicKey.toBase58();
-      const balanceInLamports = await connection.getBalance(keyPair.publicKey);
-      balance = balanceInLamports / LAMPORTS_PER_SOL;
     }
     const newWallet = {
       publicKey: publicKeyEncoded,
       privateKey: privateKeyEncoded,
       mnemonic: mnemonic || storedSolMnemonic,
       path,
-      balance,
+      balance: 0,
+      display: false,
     };
 
     const updatedWallets = [...solWallets, newWallet];
@@ -57,19 +56,19 @@ const Wallet = () => {
     return newWallet;
   };
 
-  const showSolBalance = async (publicKey) => {
+  const getSolBalance = async (publicKey) => {
     try {
       const walletPublicKey = new PublicKey(publicKey);
       const balanceInLamports = await connection.getBalance(walletPublicKey);
       const balanceInSol = balanceInLamports / LAMPORTS_PER_SOL;
-      console.log(balanceInSol);
       setSolWallets((prevWallets) =>
         prevWallets.map((wallet) =>
           wallet.publicKey === publicKey
-            ? { ...wallet, balance: balanceInSol }
+            ? { ...wallet, balance: balanceInSol, display: true }
             : wallet
         )
       );
+      return balanceInSol;
     } catch (error) {
       console.error("Failed to fetch Solana wallet balance:", error);
       toast.error("Failed to fetch balance. Please try again.");
@@ -86,6 +85,8 @@ const Wallet = () => {
   const clearSolWallets = () => {
     setSolWallets([]);
     localStorage.removeItem("solWallets");
+    localStorage.removeItem("solIndex");
+    setSolIndex(0);
     toast.success("Sol Wallets cleared.");
   };
 
@@ -94,8 +95,10 @@ const Wallet = () => {
     let accountIndex = ethIndex;
     const seedBuffer = mnemonicToSeedSync(mnemonic || storedEthMnemonic);
     const path = `m/44'/${pathType}'/0'/${accountIndex}'`;
-    setEthIndex(ethIndex + 1);
     const derivedSeed = derivePath(path, seedBuffer.toString("hex")).key;
+
+    setEthIndex(accountIndex + 1);
+    localStorage.setItem("ethIndex", JSON.stringify(accountIndex + 1));
     let privateKeyEncoded, publicKeyEncoded;
     if (pathType === "60") {
       const privateKey = Buffer.from(derivedSeed).toString("hex");
@@ -106,8 +109,10 @@ const Wallet = () => {
     const newWallet = {
       publicKey: publicKeyEncoded,
       privateKey: privateKeyEncoded,
-      mnemonic,
+      mnemonic: mnemonic || storedEthMnemonic,
       path,
+      balance: 0,
+      display: false,
     };
     const updatedWallets = [...ethWallets, newWallet];
     setEthWallets(updatedWallets);
@@ -125,33 +130,47 @@ const Wallet = () => {
   const clearEthWallets = () => {
     setEthWallets([]);
     localStorage.removeItem("ethWallets");
+    localStorage.removeItem("ethIndex");
+    setEthIndex(0);
     toast.success("Eth Wallets cleared.");
   };
 
-  const showEthBalance = () => {};
+  const showEthBalance = async (publicKey) => {
+    try {
+      setEthWallets((prevWallets) =>
+        prevWallets.map((wallet) =>
+          wallet.publicKey === publicKey
+            ? { ...wallet, balance: 0, display: true }
+            : wallet
+        )
+      );
+    } catch (error) {
+      console.error("Failed to fetch Ethereum wallet balance:", error);
+      toast.error("Failed to fetch balance. Please try again.");
+    }
+  };
 
   useEffect(() => {
-    const solIndex = JSON.parse(localStorage.getItem("solIndex"));
+    setSolIndex(JSON.parse(localStorage.getItem("solIndex")));
+    setEthIndex(JSON.parse(localStorage.getItem("ethIndex")));
+
+    const storedSolMnemonic = localStorage.getItem("mnemonic");
+    setMnemonic(storedSolMnemonic);
     const storedSolWallets = localStorage.getItem("solWallets");
-    if (solIndex) {
-      setSolIndex(solIndex);
-    }
     if (storedSolWallets) {
       setSolWallets(JSON.parse(storedSolWallets));
     } else {
-      const storedSolMnemonic = localStorage.getItem("mnemonic");
-      setMnemonic(storedSolMnemonic);
       if (storedSolMnemonic) {
         generateSolWallet(storedSolMnemonic);
       }
     }
 
+    const storedEthMnemonic = localStorage.getItem("mnemonic");
+    setMnemonic(storedEthMnemonic);
     const storedEthWallets = localStorage.getItem("ethWallets");
     if (storedEthWallets) {
       setEthWallets(JSON.parse(storedEthWallets));
     } else {
-      const storedEthMnemonic = localStorage.getItem("mnemonic");
-      setMnemonic(storedEthMnemonic);
       if (storedEthMnemonic) {
         generateEthWallet(storedEthMnemonic);
       }
@@ -185,10 +204,12 @@ const Wallet = () => {
                     <h2>Wallet {idx + 1}</h2>
                     <button
                       className="show-balance"
-                      onClick={() => showSolBalance(wallet?.publicKey)}
+                      onClick={() => getSolBalance(wallet.publicKey)}
                     >
-                      <span className="border-bottom">Show balance :</span>{" "}
-                      {wallet.balance + "SOL" || "Click to load"}
+                      <span className="border-bottom">{wallet.display
+                        ? "Balance: " + wallet.balance + " SOL"
+                        : "Show balance"}</span>{" "}
+                      
                     </button>
                   </div>
                   <MdDeleteOutline
@@ -237,7 +258,10 @@ const Wallet = () => {
                       className="show-balance"
                       onClick={() => showEthBalance(wallet.publicKey)}
                     >
-                      Show balance :{" "}
+                      <span className="border-bottom">Show balance :</span>{" "}
+                      {wallet.display
+                        ? wallet.balance + " ETH"
+                        : "Click to load"}
                     </button>
                   </div>
                   <MdDeleteOutline
