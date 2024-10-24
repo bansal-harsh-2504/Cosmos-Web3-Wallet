@@ -1,10 +1,10 @@
 import './Footer.css';
 
-const Footer = () => {
+const Footer = ({position}) => {
   return (
-    <div className="footer">
+    <div className={`footer ${position}`}>
       Designed and Developed by{" "}
-      <a href="https://www.linkedin.com/in/bansal-harsh1/">Harsh</a>
+      <a href="https://github.com/bansal-harsh-2504/">Harsh</a>
     </div>
   );
 };

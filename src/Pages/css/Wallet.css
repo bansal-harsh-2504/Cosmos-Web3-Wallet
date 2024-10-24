@@ -1,0 +1,61 @@
+.Wallets {
+  margin-top: 2.5rem;
+}
+.wrapper{
+  min-height: 63vh;
+}
+.type-of-wallet {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.type-of-wallet h1 {
+  font-weight: 800;
+}
+.individual-wallet {
+  padding: 10px;
+}
+.individual-wallet h2 {
+  font-weight: 500;
+}
+.wallet-idx {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.public-key > p,
+.private-key > p {
+  margin-bottom: 0.1rem;
+  font-weight: 400;
+}
+.private-key {
+  margin-top: 0.5rem;
+}
+.hide-key {
+  display: flex;
+  justify-content: space-between;
+}
+.icon {
+  cursor: pointer;
+  font-size: 20px;
+}
+.show-balance{
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 15px;
+    transform: translateY(5px);
+}
+
+/* Dark mode */
+body.dark .type-of-wallet h1{
+  color: #fafafa;
+}
+body.dark .individual-wallet{
+  color: #fafafa;
+}
+body.dark .show-balance{
+  color: #fafafa
+}

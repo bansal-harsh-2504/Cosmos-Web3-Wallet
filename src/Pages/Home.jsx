@@ -7,7 +7,7 @@ function Home() {
     <>
       <Header />
       <Hero />
-      <Footer />
+      <Footer position="absolute"/>
     </>
   );
 }

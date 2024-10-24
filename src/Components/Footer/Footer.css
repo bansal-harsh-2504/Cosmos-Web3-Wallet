@@ -1,6 +1,5 @@
 /* Footer */
 .footer {
-  position: absolute;
   bottom: 0.75rem;
   margin-left: 1rem;
   padding-top: 1.5rem;
@@ -17,9 +16,14 @@
 .footer a:hover {
   text-decoration: underline;
 }
-
+.absolute {
+  position: absolute;
+}
+.full{
+  width: 100%;
+}
 /* dark mode */
 body.dark .footer,
-body.dark .footer a{
+body.dark .footer a {
   color: #fafafa;
 }

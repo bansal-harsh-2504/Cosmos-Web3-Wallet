@@ -18,6 +18,7 @@ const Generate = () => {
       localStorage.setItem("mnemonic", inputVal);
     } else {
       toast.error("Invalid recovery phrase. Please try again");
+      return;
     }
     navigate("/phrase");
   };
@@ -52,7 +53,7 @@ const Generate = () => {
           </span>
         </div>
       </motion.div>
-      <Footer />
+      <Footer position="absolute"/>
     </>
   );
 };

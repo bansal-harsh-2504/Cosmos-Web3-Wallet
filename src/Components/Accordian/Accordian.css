@@ -39,7 +39,6 @@
   border-radius: 8px;
   cursor: pointer;
   height: 40px;
-  width: 1200px;
 }
 .arrow {
   display: flex;
@@ -83,7 +82,7 @@ body.dark .p:hover {
   background: #fafafa20;
 }
 body.dark .outer-div.active {
-  border: 1px solid rgba(255, 214, 109, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 body.dark .arrow-icon {
   color: #fafafa;

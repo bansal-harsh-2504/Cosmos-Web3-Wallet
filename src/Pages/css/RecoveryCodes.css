@@ -55,6 +55,7 @@
 }
 .label {
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 .input {
   margin-top: 1rem;
