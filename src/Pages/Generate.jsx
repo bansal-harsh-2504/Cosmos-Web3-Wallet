@@ -7,9 +7,11 @@ import { motion } from "framer-motion";
 import "./css/Generate.css";
 import { useState } from "react";
 import { validateMnemonic} from "bip39";
+
 const Generate = () => {
   const [inputVal, setInputVal] = useState("");
   const navigate = useNavigate();
+  
   const handleOnClick = () => {
     setInputVal(inputVal.trim());
     if (inputVal == "") {
@@ -22,6 +24,7 @@ const Generate = () => {
     }
     navigate("/phrase");
   };
+
   return (
     <>
       <Header />

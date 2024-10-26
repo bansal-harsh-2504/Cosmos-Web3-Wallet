@@ -21,6 +21,7 @@ function App() {
     document.querySelector("body").classList.remove("dark", "light");
     document.querySelector("body").classList.add(themeMode);
   }, [themeMode]);
+  
   return (
     <>
         <ThemeProvider value={{ themeMode, lightTheme, darkTheme }}>
